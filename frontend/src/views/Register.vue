@@ -56,7 +56,7 @@ async function handleRegister() {
             <a-input-password v-model:value="form.confirmPassword" size="large" placeholder="再次输入密码" />
           </a-form-item>
           <a-form-item>
-            <a-button type="primary" html-type="submit" size="large" block :loading="loading">
+            <a-button type="primary" size="large" block :loading="loading" @click="handleRegister">
               注册
             </a-button>
           </a-form-item>

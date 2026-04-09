@@ -44,7 +44,7 @@ async function handleLogin() {
           <a-input-password v-model:value="form.password" size="large" placeholder="请输入密码" />
         </a-form-item>
         <a-form-item>
-          <a-button type="primary" html-type="submit" size="large" block :loading="loading">
+          <a-button type="primary" size="large" block :loading="loading" @click="handleLogin">
             登录
           </a-button>
         </a-form-item>

@@ -1,5 +1,6 @@
+from typing import List, Union
+from pydantic import field_validator
 from pydantic_settings import BaseSettings
-from typing import List
 
 
 class Settings(BaseSettings):
@@ -21,7 +22,16 @@ class Settings(BaseSettings):
 
     sqlite_path: str = "./data/platform.db"
 
+    # 支持逗号分隔字符串或 JSON 数组
     cors_origins: List[str] = ["http://localhost:5173", "http://localhost:80"]
+
+    @field_validator("cors_origins", mode="before")
+    @classmethod
+    def parse_cors_origins(cls, v: Union[str, List[str]]) -> List[str]:
+        if isinstance(v, str):
+            # 支持逗号分隔格式：http://a.com,http://b.com
+            return [x.strip() for x in v.split(",") if x.strip()]
+        return v
 
     class Config:
         env_file = ".env"
